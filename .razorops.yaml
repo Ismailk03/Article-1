@@ -1,9 +1,11 @@
-tasks:  build-deps:  
-runner: razorci/openjdk:11-buster  
-steps:    
-- checkout  
-- commands:     
-- |        mvn sonar:sonar \      
--Dsonar.projectKey=testing \      
--Dsonar.host.url=http://65.2.9.93:9000 \    
--Dsonar.login=13f3308ed7250313208d102344be94adf6df9ed4
+tasks:
+  unit-test:
+    runner: razorci/openjdk:11-buster
+    steps:
+    - checkout
+    - commands:
+      - |
+        mvn clean package
+        ls -a 
+        ls target
+        scp -r target/valaxy-2.0-RELEASE.war ubuntu@13.233.161.145:/opt/apache-tomcat-8.5.81/webapps
