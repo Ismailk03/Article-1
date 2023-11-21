@@ -1,0 +1,16 @@
+tasks:
+  unit-test:
+    runner: razorci/openjdk:11-buster
+    steps:
+    - checkout
+    - commands:
+      - |
+        mvn clean package
+        ls -a
+        ls target 
+    - docker/build:
+        image: shivaladdu/razorops
+        push: true
+        tags: ["latest", "${CI_COMMIT_SHA:0:8}", "${CI_REPO_BRANCH}"]
+   
+       
